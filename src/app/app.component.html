@@ -1,0 +1,34 @@
+<div>
+  <h1>Currency Converter</h1>
+  <div class="container">
+    <h2>Convert Your Currency</h2>
+    <form [formGroup]="countryForm">
+      <div class="amount">
+        <p>Enter Amount</p>
+        <input type="text" formControlName="inputValue"/>
+        <small *ngIf="countryForm.get('inputValue')?.invalid && countryForm.get('inputValue')?.touched">'Please Enter Valid Numeric Characters'</small>
+      </div>
+      <div class="dropdown">
+        <div class="from">
+          <p>From</p>
+          <div class="select-container">
+            <img src="{{fromCountryFlag}}"/>
+            <select formControlName="fromCountry" name="from" (change)="onCountrySelect()">
+              <option *ngFor="let item of countries" [value]="item.code">{{item.code}}</option>
+            </select>
+          </div>
+        </div>
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        <div class="to">
+          <p>To</p>
+          <div class="select-container">
+            <img src="{{toCountryFlag}}"/>
+            <select formControlName="toCountry" name="to" (change)="onCountrySelect()">
+              <option *ngFor="let item of countries" [value]="item.code">{{item.code}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="msg">{{conversionRate}}</div>
+      <button (click)="convertCurrency()">Get Exchange Rate</button>
+    </form>
